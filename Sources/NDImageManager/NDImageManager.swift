@@ -19,7 +19,7 @@ public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, 
     fileprivate var shouldShowEdit = false
     fileprivate var isRounded = false
     
-    var imagePickerDelegate: NDImagePickerDelegate?
+    public var imagePickerDelegate: NDImagePickerDelegate?
     
     public override func viewDidLoad() {
         super.viewDidLoad()
