@@ -21,7 +21,7 @@ public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, 
     
     var imagePickerDelegate: NDImagePickerDelegate?
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         launchImagePicker()
@@ -66,7 +66,7 @@ public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, 
 
 //MARK: ImagePickerDelegate
 extension NDImageManager {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
            guard let image = (info[.originalImage] as? UIImage) else { return }
         
         picker.dismiss(animated: true) {
@@ -79,7 +79,7 @@ extension NDImageManager {
         }
     }
     
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -87,7 +87,7 @@ extension NDImageManager {
 
 //MARK: CropperViewDelegate
 extension NDImageManager {
-    func cropperDidConfirm(_ cropper: CropperViewController, state: CropperState?) {
+    public func cropperDidConfirm(_ cropper: CropperViewController, state: CropperState?) {
         cropper.dismiss(animated: true, completion: nil)
 
         if let state = state,
@@ -98,7 +98,7 @@ extension NDImageManager {
         }
     }
     
-    func cropperDidCancel(_ cropper: CropperViewController) {
+    public func cropperDidCancel(_ cropper: CropperViewController) {
         cropper.dismiss(animated: true, completion: nil)
         self.dismiss(animated: true, completion: nil)
     }
