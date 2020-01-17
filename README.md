@@ -1,3 +1,3 @@
 # NDImageManager
 
-A description of this package.
+A framework for selecting and editing images
