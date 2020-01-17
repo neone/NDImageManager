@@ -51,7 +51,7 @@ class NDImageManager: UIViewController, UIImagePickerControllerDelegate, UINavig
                present(picker, animated: true, completion: nil)
     }
     
-    fileprivate func showQCropper(_ image: UIImage,) {
+    fileprivate func showQCropper(_ image: UIImage) {
         //Setup the QCropper View
         let cropper = CropperViewController(originalImage: image)
         cropper.delegate = self
@@ -71,7 +71,7 @@ extension NDImageManager {
         
         picker.dismiss(animated: true) {
             if self.shouldShowEdit {
-                showQCropper()
+                self.showQCropper(image)
             } else {
                 self.imagePickerDelegate?.editedImageReturned(image: image)
                 self.dismiss(animated: true, completion: nil)
