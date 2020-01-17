@@ -10,6 +10,7 @@ import UIKit
 
 public protocol NDImagePickerDelegate {
     func editedImageReturned(image: UIImage)
+    func pickerCancelled()
 }
 
 public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CropperViewControllerDelegate {
@@ -27,7 +28,7 @@ public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, 
         launchImagePicker()
     }
     
-    
+        
     /// Public Setup Method - this is how NDImageManager should be set from outside the framework
     /// - Parameters:
     ///   - editable: sets whether edit window called after picker
@@ -80,7 +81,9 @@ extension NDImageManager {
     }
     
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
         self.dismiss(animated: true, completion: nil)
+        self.imagePickerDelegate?.pickerCancelled()
     }
 }
 
@@ -101,5 +104,6 @@ extension NDImageManager {
     public func cropperDidCancel(_ cropper: CropperViewController) {
         cropper.dismiss(animated: true, completion: nil)
         self.dismiss(animated: true, completion: nil)
+        self.imagePickerDelegate?.pickerCancelled()
     }
 }
