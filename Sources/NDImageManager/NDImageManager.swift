@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol NDImagePickerDelegate {
+public protocol NDImagePickerDelegate {
     func editedImageReturned(image: UIImage)
 }
 
-class NDImageManager: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CropperViewControllerDelegate {
+public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CropperViewControllerDelegate {
 
     var cropperState: CropperState?
     fileprivate var shouldPickImage = true
