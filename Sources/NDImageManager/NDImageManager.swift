@@ -27,6 +27,11 @@ public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, 
         launchImagePicker()
     }
     
+    public init() {}
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     /// Public Setup Method - this is how NDImageManager should be set from outside the framework
     /// - Parameters:
