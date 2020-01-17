@@ -9,6 +9,7 @@ import UIKit
 class TopBar: UIView {
     lazy var flipButton: UIButton = {
         let button = self.iconButton(iconName: "QCropper.flip.horizontal.fill")
+        button.setTitle("Flip", for: .normal)
         button.left = 0
         button.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin]
         return button
@@ -16,6 +17,7 @@ class TopBar: UIView {
 
     lazy var rotateButton: UIButton = {
         let button = self.iconButton(iconName: "QCropper.rotate.right.fill")
+        button.setTitle("Rotate", for: .normal)
         button.left = self.flipButton.right
         button.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin]
         return button
@@ -23,6 +25,7 @@ class TopBar: UIView {
 
     lazy var aspectRationButton: UIButton = {
         let button = self.iconButton(iconName: "QCropper.aspectratio.fill")
+        button.setTitle("Aspects", for: .normal)
         button.right = self.width
         button.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin]
         return button
