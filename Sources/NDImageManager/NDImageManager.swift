@@ -15,6 +15,7 @@ protocol NDImagePickerDelegate {
 class NDImageManager: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CropperViewControllerDelegate {
 
     var cropperState: CropperState?
+    fileprivate var shouldPickImage = true
     fileprivate var shouldShowEdit = false
     fileprivate var isRounded = false
     
@@ -49,6 +50,17 @@ class NDImageManager: UIViewController, UIImagePickerControllerDelegate, UINavig
                picker.delegate = self
                present(picker, animated: true, completion: nil)
     }
+    
+    fileprivate func showQCropper(_ image: UIImage,) {
+        //Setup the QCropper View
+        let cropper = CropperViewController(originalImage: image)
+        cropper.delegate = self
+        
+        if isRounded {
+            cropper.isCircular = true
+        }
+        self.present(cropper, animated: true, completion: nil)
+    }
 }
 
 
@@ -57,23 +69,13 @@ extension NDImageManager {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
            guard let image = (info[.originalImage] as? UIImage) else { return }
         
-        //Setup the QCropper View
-        let cropper = CropperViewController(originalImage: image)
-        cropper.delegate = self
-        
-        if isRounded {
-            cropper.isCircular = true
-        }
-    
-            //Dismiss system picker and launch options if selected
         picker.dismiss(animated: true) {
             if self.shouldShowEdit {
-                self.present(cropper, animated: true, completion: nil)
+                showQCropper()
             } else {
                 self.imagePickerDelegate?.editedImageReturned(image: image)
                 self.dismiss(animated: true, completion: nil)
             }
-            
         }
     }
     
