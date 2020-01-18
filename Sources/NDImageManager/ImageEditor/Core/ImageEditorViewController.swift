@@ -21,6 +21,8 @@ open class ImageEditorViewController: UIViewController, Rotatable, StateRestorab
     
     var initialState: CropperState?
     var isCircular: Bool
+    var filterViewActive = false
+    var aspectViewActive = false
 
     public weak var delegate: ImageEditorDelegate?
 
@@ -123,7 +125,7 @@ open class ImageEditorViewController: UIViewController, Rotatable, StateRestorab
         return view
     }()
 
-    open lazy var topBar: UIView = {
+    open lazy var topBar: TopBar = {
         let topBar = TopBar(frame: CGRect(x: 0, y: 0, width: self.view.width, height: self.view.safeAreaInsets.top + barHeight))
         topBar.flipButton.addTarget(self, action: #selector(flipButtonPressed(_:)), for: .touchUpInside)
         topBar.rotateButton.addTarget(self, action: #selector(rotateButtonPressed(_:)), for: .touchUpInside)
@@ -206,6 +208,8 @@ open class ImageEditorViewController: UIViewController, Rotatable, StateRestorab
             return
         }
 
+        topBar.aspectRationButton.isSelected = false
+        
         view.backgroundColor = .clear
 
         scrollView.addSubview(imageView)

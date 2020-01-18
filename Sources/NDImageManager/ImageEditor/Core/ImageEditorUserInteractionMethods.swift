@@ -248,17 +248,32 @@ extension ImageEditorViewController {
     @objc
     func imageFiltersButtonPressed(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        angleRuler.isHidden = sender.isSelected
+        filterViewActive = !sender.isSelected
+        filterViewActive = true
+        if aspectViewActive {
+            aspectViewActive = false
+            aspectRatioPicker.isHidden = true
+            topBar.aspectRationButton.isSelected = false
+        }
         
+        angleRuler.isHidden = sender.isSelected
         overlay.cropBox.isHidden = sender.isSelected
         backgroundView.isUserInteractionEnabled = !sender.isSelected
+        
         imageFiltersView.isHidden = !sender.isSelected
     }
     
     @objc
     func aspectRationButtonPressed(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+        aspectViewActive = true
+        if filterViewActive {
+            filterViewActive = false
+            imageFiltersView.isHidden = true
+            topBar.imageFiltersButton.isSelected = false
+        }
         
+        backgroundView.isUserInteractionEnabled = true
         angleRuler.isHidden = sender.isSelected
         aspectRatioPicker.isHidden = !sender.isSelected
     }

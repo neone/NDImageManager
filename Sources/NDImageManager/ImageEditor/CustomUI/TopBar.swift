@@ -6,7 +6,7 @@
 
 import UIKit
 
-class TopBar: UIView {
+public class TopBar: UIView {
     lazy var flipButton: UIButton = {
         let button = self.iconButton(iconName: "QCropper.flip.horizontal.fill")
         button.left = 0
@@ -21,14 +21,14 @@ class TopBar: UIView {
         return button
     }()
     
-    lazy var imageFiltersButton: UIButton = {
+    public lazy var imageFiltersButton: UIButton = {
         let button = self.iconButton(iconName: "ios11-camera-filter-icon")
         button.right = self.aspectRationButton.left
         button.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin]
         return button
     }()
 
-    lazy var aspectRationButton: UIButton = {
+    public lazy var aspectRationButton: UIButton = {
         let button = self.iconButton(iconName: "QCropper.aspectratio.fill")
         button.right = self.width
         button.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin]
