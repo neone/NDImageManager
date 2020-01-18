@@ -51,7 +51,8 @@ open class CropBox: UIView {
         gridLinesView.frame = bounds
         gridLinesView.setNeedsDisplay()
     }
-
+    
+    
     func setupCorners() {
         let offset: CGFloat = -1
 
@@ -75,6 +76,12 @@ open class CropBox: UIView {
         bottomLeft.autoresizingMask = .flexibleTopMargin
         addSubview(bottomLeft)
     }
+    
+//    func hideCropTools() {
+//        gridLinesView.isHidden = true
+//        
+//    }
+
 }
 
 // MARK: CornerType

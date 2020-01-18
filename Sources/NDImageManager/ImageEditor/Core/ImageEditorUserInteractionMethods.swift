@@ -9,6 +9,28 @@ import UIKit
 
 extension ImageEditorViewController {
     
+    //MARK: Angle Ruler
+    @objc
+      func angleRulerValueChanged(_: AnyObject) {
+          toolbar.isUserInteractionEnabled = false
+          topBar.isUserInteractionEnabled = false
+          scrollViewContainer.isUserInteractionEnabled = false
+          setStraightenAngle(CGFloat(angleRuler.value * CGFloat.pi / 180.0))
+      }
+
+      @objc
+      func angleRulerTouchEnded(_: AnyObject) {
+          UIView.animate(withDuration: 0.25, animations: {
+              self.overlay.gridLinesAlpha = 0
+              self.overlay.blur = true
+          }, completion: { _ in
+              self.toolbar.isUserInteractionEnabled = true
+              self.topBar.isUserInteractionEnabled = true
+              self.scrollViewContainer.isUserInteractionEnabled = true
+              self.overlay.gridLinesCount = 2
+          })
+      }
+    
     //MARK: Scroll Views
     func scrollViewZoomScaleToBounds() -> CGFloat {
         let scaleW = scrollView.bounds.size.width / imageView.bounds.size.width
@@ -227,6 +249,9 @@ extension ImageEditorViewController {
     func imageFiltersButtonPressed(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         angleRuler.isHidden = sender.isSelected
+        
+        overlay.cropBox.isHidden = sender.isSelected
+        backgroundView.isUserInteractionEnabled = !sender.isSelected
         imageFiltersView.isHidden = !sender.isSelected
     }
     

@@ -15,23 +15,12 @@ public protocol ImageEditorDelegate: class {
 
 
 open class ImageEditorViewController: UIViewController, Rotatable, StateRestorable, Flipable {
-    
+
+    //MARK: Variables and Outlets
     public let originalImage: UIImage
     
     var initialState: CropperState?
     var isCircular: Bool
-
-    public init(originalImage: UIImage, initialState: CropperState? = nil, isCircular: Bool = false) {
-        self.originalImage = originalImage
-        self.initialState = initialState
-        self.isCircular = isCircular
-        super.init(nibName: nil, bundle: nil)
-        modalPresentationStyle = .fullScreen
-    }
-
-    public required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     public weak var delegate: ImageEditorDelegate?
 
@@ -185,31 +174,23 @@ open class ImageEditorViewController: UIViewController, Rotatable, StateRestorab
         return picker
     }()
 
-    @objc
-    func angleRulerValueChanged(_: AnyObject) {
-        toolbar.isUserInteractionEnabled = false
-        topBar.isUserInteractionEnabled = false
-        scrollViewContainer.isUserInteractionEnabled = false
-        setStraightenAngle(CGFloat(angleRuler.value * CGFloat.pi / 180.0))
-    }
 
-    @objc
-    func angleRulerTouchEnded(_: AnyObject) {
-        UIView.animate(withDuration: 0.25, animations: {
-            self.overlay.gridLinesAlpha = 0
-            self.overlay.blur = true
-        }, completion: { _ in
-            self.toolbar.isUserInteractionEnabled = true
-            self.topBar.isUserInteractionEnabled = true
-            self.scrollViewContainer.isUserInteractionEnabled = true
-            self.overlay.gridLinesCount = 2
-        })
-    }
-
-    // MARK: - Override
+    //MARK: Initializers and Overrides
 
     deinit {
         self.cancelStasis()
+    }
+
+    public init(originalImage: UIImage, initialState: CropperState? = nil, isCircular: Bool = false) {
+        self.originalImage = originalImage
+        self.initialState = initialState
+        self.isCircular = isCircular
+        super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .fullScreen
+    }
+
+    public required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     open override func viewDidLoad() {
