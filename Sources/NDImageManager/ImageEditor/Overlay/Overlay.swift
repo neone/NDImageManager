@@ -51,7 +51,8 @@ open class Overlay: UIView {
     }
 
     // Take effect when blur = false
-    public var maskColor: UIColor = UIColor(white: 0.1, alpha: 0.3) {
+    // original = UIColor(white: 0.5, alpha: 0.3)
+    public var maskColor: UIColor = UIColor.black {
         didSet {
             if !blur || !isBlurEnabled {
                 translucentMaskView.backgroundColor = maskColor

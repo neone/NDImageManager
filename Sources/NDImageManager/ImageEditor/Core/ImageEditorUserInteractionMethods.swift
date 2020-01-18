@@ -258,6 +258,8 @@ extension ImageEditorViewController {
         
         angleRuler.isHidden = sender.isSelected
         overlay.cropBox.isHidden = sender.isSelected
+        overlay.blur = !sender.isSelected
+//        overlay.backgroundColor = UIColor.black
         backgroundView.isUserInteractionEnabled = !sender.isSelected
         
         imageFiltersView.isHidden = !sender.isSelected
