@@ -14,7 +14,7 @@ class CIFilterCollectionViewCell: UICollectionViewCell {
     
     private var filterNameLabel: UILabel!
     private var imageView: UIImageView!
-    
+    private var cellWidth: CGFloat!
     
     //MARK: Initializers and Overrides
     override init(frame: CGRect) {
@@ -43,23 +43,18 @@ class CIFilterCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(cellStack)
         cellStack.bindFrameToSuperviewBounds()
         
-
+        cellWidth = cellStack.bounds.width
         imageView = UIImageView()
         imageView.frame = CGRect(x: 0, y: 0, width: cellStack.bounds.width, height:cellStack.bounds.width)
         imageView.layer.cornerRadius = 5
-        
-        
-        
+   
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
         
 
         filterNameLabel = UILabel()
-        if #available(iOS 13, *) {
-            filterNameLabel.textColor = UIColor.label
-        } else {
-            filterNameLabel.textColor = UIColor.black
-        }
+        
+        filterNameLabel.textColor = UIColor.white
         
         cellStack.addArrangedSubviews([filterNameLabel, imageView])
         
@@ -71,8 +66,18 @@ class CIFilterCollectionViewCell: UICollectionViewCell {
         filterNameLabel.font = isSelected ? UIFont.boldSystemFont(ofSize: 11) : UIFont.systemFont(ofSize: 11, weight: .thin)
     }
     
+    func configure(filter: Filter, isSelected: Bool) {
+        filterNameLabel.text = filter.name
+        filterNameLabel.font = isSelected ? UIFont.boldSystemFont(ofSize: 11) : UIFont.systemFont(ofSize: 11, weight: .thin)
+    }
+    
     func setImage(with image: UIImage?) {
         imageView.image = image
+        imageView.frame = CGRect(x: 0, y: 0, width: cellWidth, height: cellWidth)
+        imageView.layer.cornerRadius = 5
+        
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
     }
 }
 

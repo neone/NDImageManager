@@ -17,7 +17,7 @@ public class FiltersView: UIView {
     
     private var collectionView: UICollectionView!
     public var image: UIImage!
-    public var textColor: UIColor?
+//    public var textColor: UIColor?
     private var selectedFilterIndex = 0
     private var smallImage = UIImage()
     
@@ -39,8 +39,8 @@ public class FiltersView: UIView {
     
     private func configureUI() {
         
-        let cellHeight = self.bounds.height/6
-        let cellWidth = self.bounds.width/5
+        let cellHeight = self.bounds.height
+        let cellWidth = cellHeight * 0.6
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(width: cellWidth, height: cellHeight)
@@ -64,7 +64,7 @@ public class FiltersView: UIView {
         collectionView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: self.bounds.height/6).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: self.bounds.height).isActive = true
         
         
         collectionView.register(CIFilterCollectionViewCell.self, forCellWithReuseIdentifier: "CIFilterCell")
@@ -93,15 +93,15 @@ extension FiltersView: UICollectionViewDataSource, UICollectionViewDelegate
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CIFilterCell", for: indexPath) as! CIFilterCollectionViewCell
         let filter = Filter.all[indexPath.row]
         let isSelected = indexPath.row == selectedFilterIndex
-        if let labelColor = textColor {
-             cell.configure(filter: filter, textColor: labelColor, isSelected: isSelected)
-        }
+        cell.configure(filter: filter, isSelected: isSelected)
        
         DispatchQueue.global().async { [weak self, weak cell] in
             var filteredImage = self?.smallImage
             filteredImage = CIFilterService.shared.applyFilter(with: filteredImage!, filter: filter)
             DispatchQueue.main.async {
+                cell?.configure(filter: filter, isSelected: isSelected)
                 cell?.setImage(with: filteredImage)
+                
             }
         }
         return cell

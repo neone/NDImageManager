@@ -14,10 +14,12 @@ public protocol ImageEditorDelegate: class {
 }
 
 
-open class ImageEditorViewController: UIViewController, Rotatable, StateRestorable, Flipable {
+open class ImageEditorViewController: UIViewController, FiltersViewDelegate, Rotatable, StateRestorable, Flipable {
+   
+    
 
     //MARK: Variables and Outlets
-    public let originalImage: UIImage
+    public var originalImage: UIImage
     
     var initialState: CropperState?
     var isCircular: Bool
@@ -160,6 +162,7 @@ open class ImageEditorViewController: UIViewController, Rotatable, StateRestorab
     public lazy var imageFiltersView: FiltersView = {
         let filterPicker = FiltersView(frame: CGRect(x: 0, y: 0, width: view.width, height: 80))
         filterPicker.image = originalImage
+        filterPicker.filtersViewDelegate = self
         return filterPicker
     }()
     

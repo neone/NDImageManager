@@ -116,3 +116,14 @@ extension ImageEditorViewController: AspectRatioPickerDelegate {
         setAspectRatio(aspectRatio)
     }
 }
+
+
+extension ImageEditorViewController {
+    
+    public func didFinish(_ image: UIImage) {
+        imageView.image = image
+        originalImage = image
+    }
+    
+    public func didCancel() {}
+}
