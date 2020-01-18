@@ -226,6 +226,8 @@ extension ImageEditorViewController {
     @objc
     func imageFiltersButtonPressed(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+        angleRuler.isHidden = sender.isSelected
+        imageFiltersView.isHidden = !sender.isSelected
     }
     
     @objc

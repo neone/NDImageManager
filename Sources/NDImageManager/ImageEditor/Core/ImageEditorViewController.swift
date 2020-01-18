@@ -6,17 +6,7 @@
 
 import UIKit
 
-enum CropBoxEdge: Int {
-    case none
-    case left
-    case topLeft
-    case top
-    case topRight
-    case right
-    case bottomRight
-    case bottom
-    case bottomLeft
-}
+
 
 public protocol ImageEditorDelegate: class {
     func editorDidConfirm(_ cropper: ImageEditorViewController, state: CropperState?)
@@ -25,7 +15,9 @@ public protocol ImageEditorDelegate: class {
 
 
 open class ImageEditorViewController: UIViewController, Rotatable, StateRestorable, Flipable {
+    
     public let originalImage: UIImage
+    
     var initialState: CropperState?
     var isCircular: Bool
 
@@ -174,6 +166,11 @@ open class ImageEditorViewController: UIViewController, Rotatable, StateRestorab
 
     open lazy var overlay: Overlay = Overlay(frame: self.view.bounds)
 
+    public lazy var imageFiltersView: FiltersView = {
+        let filterPicker = FiltersView(frame: CGRect(x: 0, y: 0, width: view.width, height: 80))
+        return filterPicker
+    }()
+    
     public lazy var angleRuler: AngleRuler = {
         let ar = AngleRuler(frame: CGRect(x: 0, y: 0, width: view.width, height: 80))
         ar.addTarget(self, action: #selector(angleRulerValueChanged(_:)), for: .valueChanged)
@@ -245,6 +242,8 @@ open class ImageEditorViewController: UIViewController, Rotatable, StateRestorab
 
         backgroundView.addSubview(scrollViewContainer)
         backgroundView.addSubview(overlay)
+        bottomView.addSubview(imageFiltersView)
+        imageFiltersView.isHidden = true
         bottomView.addSubview(aspectRatioPicker)
         bottomView.addSubview(angleRuler)
         bottomView.addSubview(toolbar)
@@ -318,6 +317,7 @@ open class ImageEditorViewController: UIViewController, Rotatable, StateRestorab
         toolbar.bottom = bottomView.height
         angleRuler.bottom = toolbar.top - margin
         aspectRatioPicker.frame = angleRuler.frame
+        imageFiltersView.frame = angleRuler.frame
 
         let topHeight = topBar.isHidden ? view.safeAreaInsets.top : topBar.height
         let toolbarHeight = toolbar.isHidden ? view.safeAreaInsets.bottom : toolbar.height
@@ -394,18 +394,8 @@ open class ImageEditorViewController: UIViewController, Rotatable, StateRestorab
         updateButtons()
     }
 
-    
-
-    
-
     public static let overlayCropBoxFramePlaceholder: CGRect = .zero
-
-    
 }
-
-
-
-
 
 
 // MARK: Add capability from protocols
