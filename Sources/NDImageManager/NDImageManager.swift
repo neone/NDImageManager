@@ -13,7 +13,7 @@ public protocol NDImagePickerDelegate {
     func pickerCancelled()
 }
 
-public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CropperViewControllerDelegate {
+public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageEditorDelegate {
 
     var cropperState: CropperState?
     fileprivate var shouldPickImage = true
@@ -54,7 +54,7 @@ public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, 
     
     fileprivate func showQCropper(_ image: UIImage) {
         //Setup the QCropper View
-        let cropper = CropperViewController(originalImage: image)
+        let cropper = ImageEditorViewController(originalImage: image)
         cropper.delegate = self
         
         if isRounded {
@@ -90,7 +90,7 @@ extension NDImageManager {
 
 //MARK: CropperViewDelegate
 extension NDImageManager {
-    public func cropperDidConfirm(_ cropper: CropperViewController, state: CropperState?) {
+    public func editorDidConfirm(_ cropper: ImageEditorViewController, state: CropperState?) {
         cropper.dismiss(animated: true, completion: nil)
 
         if let state = state,
@@ -101,7 +101,7 @@ extension NDImageManager {
         }
     }
     
-    public func cropperDidCancel(_ cropper: CropperViewController) {
+    public func editorDidCancel(_ cropper: ImageEditorViewController) {
         cropper.dismiss(animated: true, completion: nil)
         self.dismiss(animated: true, completion: nil)
         self.imagePickerDelegate?.pickerCancelled()

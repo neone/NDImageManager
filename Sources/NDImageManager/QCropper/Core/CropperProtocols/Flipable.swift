@@ -10,7 +10,7 @@ public protocol Flipable {
     func flip(directionHorizontal: Bool)
 }
 
-extension Flipable where Self: CropperViewController {
+extension Flipable where Self: ImageEditorViewController {
     public func flip(directionHorizontal: Bool = true) {
         let size: CGSize = scrollView.contentSize
         let contentOffset = scrollView.contentOffset

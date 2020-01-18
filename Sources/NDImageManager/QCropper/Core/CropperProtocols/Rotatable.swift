@@ -11,7 +11,7 @@ public protocol Rotatable {
     func rotate90degrees(clockwise: Bool)
 }
 
-extension Rotatable where Self: CropperViewController {
+extension Rotatable where Self: ImageEditorViewController {
     public func setStraightenAngle(_ angle: CGFloat) {
         overlay.cropBoxFrame = overlay.cropBoxFrame
         overlay.gridLinesAlpha = 1

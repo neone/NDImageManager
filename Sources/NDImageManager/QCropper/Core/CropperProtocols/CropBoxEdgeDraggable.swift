@@ -11,7 +11,7 @@ protocol CropBoxEdgeDraggable {
     func updateCropBoxFrameWithPanGesturePoint(_ point: CGPoint)
 }
 
-extension CropBoxEdgeDraggable where Self: CropperViewController {
+extension CropBoxEdgeDraggable where Self: ImageEditorViewController {
 
     func nearestCropBoxEdgeForPoint(point: CGPoint) -> CropBoxEdge {
         var frame = overlay.cropBoxFrame

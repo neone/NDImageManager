@@ -11,7 +11,7 @@ public protocol AspectRatioSettable {
     func setAspectRatioValue(_ aspectRatioValue: CGFloat)
 }
 
-extension AspectRatioSettable where Self: CropperViewController {
+extension AspectRatioSettable where Self: ImageEditorViewController {
     public func setAspectRatio(_ aspectRatio: AspectRatio) {
         switch aspectRatio {
         case .original:

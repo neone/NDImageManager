@@ -12,7 +12,7 @@ public protocol StateRestorable {
     func restoreState(_ state: CropperState, animated: Bool)
 }
 
-extension StateRestorable where Self: CropperViewController {
+extension StateRestorable where Self: ImageEditorViewController {
     public func isCurrentlyInState(_ state: CropperState?) -> Bool {
         guard let state = state else { return false }
         let epsilon: CGFloat = 0.0001
