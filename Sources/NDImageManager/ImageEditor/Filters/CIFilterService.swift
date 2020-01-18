@@ -26,10 +26,14 @@ final class CIFilterService {
         let filter = CIFilter(name: ciFilterName)
         filter?.setDefaults()
         filter?.setValue(sourceImage, forKey: kCIInputImageKey)
-        let outputCGImage = context.createCGImage((filter?.outputImage!)!, from: (filter?.outputImage!.extent)!)
-        let filteredImage = UIImage(cgImage: outputCGImage!)
+        if let filteredOutput = filter?.outputImage {
+            let outputCGImage = context.createCGImage((filter?.outputImage!)!, from: (filter?.outputImage!.extent)!)
+            let filteredImage = UIImage(cgImage: outputCGImage!)
 
-        return filteredImage
+            return filteredImage
+        } else {
+            return image
+        }
     }
 }
 

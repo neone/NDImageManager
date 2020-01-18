@@ -159,6 +159,7 @@ open class ImageEditorViewController: UIViewController, Rotatable, StateRestorab
 
     public lazy var imageFiltersView: FiltersView = {
         let filterPicker = FiltersView(frame: CGRect(x: 0, y: 0, width: view.width, height: 80))
+        filterPicker.image = originalImage
         return filterPicker
     }()
     
