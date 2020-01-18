@@ -151,6 +151,7 @@ open class CropperViewController: UIViewController, Rotatable, StateRestorable, 
         let topBar = TopBar(frame: CGRect(x: 0, y: 0, width: self.view.width, height: self.view.safeAreaInsets.top + barHeight))
         topBar.flipButton.addTarget(self, action: #selector(flipButtonPressed(_:)), for: .touchUpInside)
         topBar.rotateButton.addTarget(self, action: #selector(rotateButtonPressed(_:)), for: .touchUpInside)
+        topBar.imageFiltersButton.addTarget(self, action: #selector(imageFiltersButtonPressed(_:)), for: .touchUpInside)
         topBar.aspectRationButton.addTarget(self, action: #selector(aspectRationButtonPressed(_:)), for: .touchUpInside)
         return topBar
     }()
@@ -376,6 +377,11 @@ open class CropperViewController: UIViewController, Rotatable, StateRestorable, 
         rotate90degrees()
     }
 
+     @objc
+    func imageFiltersButtonPressed(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    
     @objc
     func aspectRationButtonPressed(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected

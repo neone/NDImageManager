@@ -20,6 +20,13 @@ class TopBar: UIView {
         button.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin]
         return button
     }()
+    
+    lazy var imageFiltersButton: UIButton = {
+        let button = self.iconButton(iconName: "ios11-camera-filter-icon")
+        button.right = self.aspectRationButton.left
+        button.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin]
+        return button
+    }()
 
     lazy var aspectRationButton: UIButton = {
         let button = self.iconButton(iconName: "QCropper.aspectratio.fill")
@@ -44,6 +51,7 @@ class TopBar: UIView {
         addSubview(blurBackgroundView)
         addSubview(flipButton)
         addSubview(rotateButton)
+        addSubview(imageFiltersButton)
         addSubview(aspectRationButton)
     }
 
