@@ -4,9 +4,9 @@
 [![Swift Version](https://img.shields.io/badge/Language-Swift%202.2,%202.3,%203,%204%20&%205-orange.svg)](https://developer.apple.com/swift)
 
 
-The NDImageManager framework is designed to make loading, editing, and filtering images easy. To see the framework in action download the NDImageApp for example of how to implement the framework.  Both the NDImageApp and the NDImageManager framework are open source and available under the MIT License 
+The NDImageManager framework is designed to make loading, editing, and filtering images easy. To see the framework in action download the NDImageApp for an example of how to implement the framework.  Both the NDImageApp and the NDImageManager framework are open source and available under the MIT License 
 
-NDImageApp, (https://github.com/neone/NDImageApp)
+[NDImageApp](https://github.com/neone/NDImageApp)
 
 ## Description
 
