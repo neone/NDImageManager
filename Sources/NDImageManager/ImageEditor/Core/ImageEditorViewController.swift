@@ -19,7 +19,8 @@ open class ImageEditorViewController: UIViewController, FiltersViewDelegate, Rot
     
 
     //MARK: Variables and Outlets
-    public var originalImage: UIImage
+    public var selectedImage: UIImage
+    var originalImage: UIImage
     
     var initialState: CropperState?
     var isCircular: Bool
@@ -102,7 +103,7 @@ open class ImageEditorViewController: UIViewController, FiltersViewDelegate, Rot
     }()
 
     lazy var imageView: UIImageView = {
-        let iv = UIImageView(image: self.originalImage)
+        let iv = UIImageView(image: self.selectedImage)
         iv.backgroundColor = .clear
         return iv
     }()
@@ -136,7 +137,7 @@ open class ImageEditorViewController: UIViewController, FiltersViewDelegate, Rot
         return topBar
     }()
 
-    open lazy var toolbar: UIView = {
+    open lazy var toolbar: Toolbar = {
         let toolbar = Toolbar(frame: CGRect(x: 0, y: 0, width: self.view.width, height: view.safeAreaInsets.bottom + barHeight))
         toolbar.doneButton.addTarget(self, action: #selector(confirmButtonPressed(_:)), for: .touchUpInside)
         toolbar.cancelButton.addTarget(self, action: #selector(cancelButtonPressed(_:)), for: .touchUpInside)
@@ -161,7 +162,7 @@ open class ImageEditorViewController: UIViewController, FiltersViewDelegate, Rot
 
     public lazy var imageFiltersView: FiltersView = {
         let filterPicker = FiltersView(frame: CGRect(x: 0, y: 0, width: view.width, height: 80))
-        filterPicker.image = originalImage
+        filterPicker.image = selectedImage
         filterPicker.filtersViewDelegate = self
         return filterPicker
     }()
@@ -188,6 +189,7 @@ open class ImageEditorViewController: UIViewController, FiltersViewDelegate, Rot
     }
 
     public init(originalImage: UIImage, initialState: CropperState? = nil, isCircular: Bool = false) {
+        self.selectedImage = originalImage
         self.originalImage = originalImage
         self.initialState = initialState
         self.isCircular = isCircular
@@ -207,7 +209,7 @@ open class ImageEditorViewController: UIViewController, FiltersViewDelegate, Rot
 
         // TODO: transition
 
-        if originalImage.size.width < 1 || originalImage.size.height < 1 {
+        if selectedImage.size.width < 1 || selectedImage.size.height < 1 {
             // TODO: show alert and dismiss
             return
         }
@@ -323,10 +325,10 @@ open class ImageEditorViewController: UIViewController, FiltersViewDelegate, Rot
         defaultCropBoxCenter = CGPoint(x: view.width / 2.0, y: cropRegionInsets.top + maxCropRegion.size.height / 2.0)
         defaultCropBoxSize = {
             var size: CGSize
-            let scaleW = self.originalImage.size.width / self.maxCropRegion.size.width
-            let scaleH = self.originalImage.size.height / self.maxCropRegion.size.height
+            let scaleW = self.selectedImage.size.width / self.maxCropRegion.size.width
+            let scaleH = self.selectedImage.size.height / self.maxCropRegion.size.height
             let scale = max(scaleW, scaleH)
-            size = CGSize(width: self.originalImage.size.width / scale, height: self.originalImage.size.height / scale)
+            size = CGSize(width: self.selectedImage.size.width / scale, height: self.selectedImage.size.height / scale)
             return size
         }()
 
@@ -355,16 +357,17 @@ open class ImageEditorViewController: UIViewController, FiltersViewDelegate, Rot
         if isCircular {
             isCropBoxPanEnabled = true
             overlay.isCircular = true
-            topBar.isHidden = true
+            topBar.isHidden = false
+            topBar.aspectRationButton.isHidden = true
             aspectRatioPicker.isHidden = true
             angleRuler.isHidden = false
             cropBoxFrame = CGRect(center: defaultCropBoxCenter, size: CGSize(width: maxCropRegion.size.width, height: maxCropRegion.size.width))
             matchScrollViewAndCropView()
         } else {
-            if originalImage.size.width / originalImage.size.height < cropBoxMinSize / maxCropRegion.size.height { // very long
+            if selectedImage.size.width / selectedImage.size.height < cropBoxMinSize / maxCropRegion.size.height { // very long
                 cropBoxFrame = CGRect(x: (view.width - cropBoxMinSize) / 2, y: cropRegionInsets.top, width: cropBoxMinSize, height: maxCropRegion.size.height)
                 matchScrollViewAndCropView()
-            } else if originalImage.size.height / originalImage.size.width < cropBoxMinSize / maxCropRegion.size.width { // very wide
+            } else if selectedImage.size.height / selectedImage.size.width < cropBoxMinSize / maxCropRegion.size.width { // very wide
                 cropBoxFrame = CGRect(x: cropRegionInsets.left, y: cropRegionInsets.top + (maxCropRegion.size.height - cropBoxMinSize) / 2, width: maxCropRegion.size.width, height: cropBoxMinSize)
                 matchScrollViewAndCropView()
             }

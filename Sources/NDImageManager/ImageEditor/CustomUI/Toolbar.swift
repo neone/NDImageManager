@@ -6,7 +6,7 @@
 
 import UIKit
 
-class Toolbar: UIView {
+public class Toolbar: UIView {
     lazy var cancelButton: UIButton = {
         let button = self.titleButton("Cancel")
         button.left = 0
@@ -14,7 +14,7 @@ class Toolbar: UIView {
         return button
     }()
 
-    lazy var resetButton: UIButton = {
+    public lazy var resetButton: UIButton = {
         let button = self.titleButton("RESET", highlight: true)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.isHidden = true

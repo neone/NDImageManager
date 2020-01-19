@@ -221,6 +221,8 @@ extension ImageEditorViewController {
         overlay.cropBoxAlpha = 0
         topBar.isUserInteractionEnabled = false
         bottomView.isUserInteractionEnabled = false
+        selectedImage = originalImage
+        imageView.image = originalImage
         
         UIView.animate(withDuration: 0.25, animations: {
             self.resetToDefaultLayout()

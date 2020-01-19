@@ -23,14 +23,14 @@ public class TopBar: UIView {
     
     public lazy var imageFiltersButton: UIButton = {
         let button = self.iconButton(iconName: "ios11-camera-filter-icon")
-        button.right = self.aspectRationButton.left
+        button.right = self.width
         button.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin]
         return button
     }()
 
     public lazy var aspectRationButton: UIButton = {
         let button = self.iconButton(iconName: "QCropper.aspectratio.fill")
-        button.right = self.width
+        button.right = self.imageFiltersButton.left
         button.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin]
         return button
     }()

@@ -122,7 +122,8 @@ extension ImageEditorViewController {
     
     public func didFinish(_ image: UIImage) {
         imageView.image = image
-        originalImage = image
+        selectedImage = image
+        toolbar.resetButton.isHidden = false
     }
     
     public func didCancel() {}

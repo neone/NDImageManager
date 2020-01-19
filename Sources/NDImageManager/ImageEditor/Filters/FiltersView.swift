@@ -17,7 +17,8 @@ public class FiltersView: UIView {
     
     private var collectionView: UICollectionView!
     public var image: UIImage!
-//    public var textColor: UIColor?
+    var filterPreviews: [UIImage] = []
+    
     private var selectedFilterIndex = 0
     private var smallImage = UIImage()
     
@@ -38,6 +39,25 @@ public class FiltersView: UIView {
     }
     
     private func configureUI() {
+        
+//        let dispatchGroup = DispatchGroup()
+//        
+//        for filter in Filter.all {
+//            dispatchGroup.enter()
+//            DispatchQueue.global().async { [weak self] in
+//                if var filteredImage = self?.smallImage {
+//                    filteredImage = CIFilterService.shared.applyFilter(with: filteredImage, filter: filter)
+//                    DispatchQueue.main.async {
+//                        print(filteredImage)
+//                        self?.filterPreviews.append(filteredImage)
+//                    }
+//                    dispatchGroup.leave()
+//                }
+//            }
+//        }
+//
+//        dispatchGroup.wait()
+        
         
         let cellHeight = self.bounds.height
         let cellWidth = cellHeight * 0.6

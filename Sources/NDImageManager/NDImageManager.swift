@@ -94,7 +94,7 @@ extension NDImageManager {
         cropper.dismiss(animated: true, completion: nil)
 
         if let state = state,
-            let image = cropper.originalImage.cropped(withCropperState: state) {
+            let image = cropper.selectedImage.cropped(withCropperState: state) {
             cropperState = state
             imagePickerDelegate?.editedImageReturned(image: image)
             self.dismiss(animated: true, completion: nil)
