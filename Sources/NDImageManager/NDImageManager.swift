@@ -33,12 +33,12 @@ public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, 
     /// - Parameters:
     ///   - editable: sets whether edit window called after picker
     ///   - rounded: set edit window crop to round only
-    public func setUpImageManager(editable: Bool, rounded: Bool ) {
+    public func setUpImageManager(pickImage: Bool, editable: Bool, attachedImage: UIImage? = nil, rounded: Bool? = false ) {
         if editable {
             shouldShowEdit = true
         }
-        if rounded {
-            isRounded = true
+        if let shouldRound = rounded {
+            isRounded = shouldRound
         }
     }
     
