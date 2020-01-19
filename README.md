@@ -4,18 +4,15 @@
 [![Swift Version](https://img.shields.io/badge/Language-Swift%202.2,%202.3,%203,%204%20&%205-orange.svg)](https://developer.apple.com/swift)
 
 
-Preview the great functionality of the NDImageManager framework with this example app. NDImageManager is a Swift framework for selecting and editing images in a consistent and easy way. This app utilizes the NDImageManager framework as a Swift Package pulled directly from its repository. The NDImageManager framework is also open source and available under the MIT License 
+The NDImageManager framework is designed to make loading, editing, and filtering images easy. To see the framework in action download the NDImageApp for example of how to implement the framework.  Both the NDImageApp and the NDImageManager framework are open source and available under the MIT License 
 
-NDImageManager, (https://github.com/neone/NDImageManager)
+NDImageApp, (https://github.com/neone/NDImageApp)
 
 ## Description
 
 ## Usage
 
-
-#### NDAvatarApp Project
-
-Please refer to the example project in this repository as an implementation of the framework. If you find any bugs, open a GitHub issue!
+If you find any bugs, open a GitHub issue!
 
 
 ## Documentation
@@ -23,11 +20,12 @@ Please refer to the example project in this repository as an implementation of t
 
 ## Requirements
 
-NDAvatarApp requires at least iOS 12.
+NDImageManager requires at least iOS 12. 
 
 ## Installation
 
 To install the NDImageManager framework in your app simply add it to the Swift Packages of your project settings. No pods, no command line tools. Just a Swift Package :)
+**Included in the repository is the ImageAssets catalog you will need for the framework. Be sure to include this in any apps that use the framework otherwise some buttons will not be visible.**
 
 ## Release Notes
 
@@ -42,4 +40,4 @@ Mark Moeykens, [GitHub](https://github.com/bigmountainstudio), Web: [Big Mountai
 
 ## License
 
-The NDImageApp is available under the MIT license. See the LICENSE.md file for more info.
+The NDImageManager framework is available under the MIT license. See the LICENSE.md file for more info.
