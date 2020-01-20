@@ -99,8 +99,14 @@ public class FiltersView: UIView {
         let filter = Filter.all[selectedFilterIndex]
         DispatchQueue.global().async { [weak self] in
             let filteredImage = CIFilterService.shared.applyFilter(with: self?.image ?? UIImage(), filter: filter)
-            DispatchQueue.main.async {
-                self?.filtersViewDelegate?.didFinish(filteredImage)
+            if let correctedImage = filteredImage.fixedOrientation() {
+                DispatchQueue.main.async {
+                    self?.filtersViewDelegate?.didFinish(correctedImage)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.filtersViewDelegate?.didFinish(filteredImage)
+                }
             }
         }
     }

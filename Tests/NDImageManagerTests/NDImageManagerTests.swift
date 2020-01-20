@@ -10,6 +10,5 @@ final class NDImageManagerTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testExample", testExample),
     ]
 }

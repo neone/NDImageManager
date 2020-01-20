@@ -70,11 +70,17 @@ extension NDImageManager {
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
            guard let image = (info[.originalImage] as? UIImage) else { return }
         
+        var selectedImage = image
+        
+        if let fixedImage = selectedImage.fixedOrientation() {
+            selectedImage = fixedImage
+        }
+        
         picker.dismiss(animated: true) {
             if self.shouldShowEdit {
-                self.showQCropper(image)
+                self.showQCropper(selectedImage)
             } else {
-                self.imagePickerDelegate?.editedImageReturned(image: image)
+                self.imagePickerDelegate?.editedImageReturned(image: selectedImage)
                 self.dismiss(animated: true, completion: nil)
             }
         }
