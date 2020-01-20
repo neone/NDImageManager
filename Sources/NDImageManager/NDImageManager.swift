@@ -15,17 +15,25 @@ public protocol NDImagePickerDelegate {
 
 public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageEditorDelegate {
 
-    var cropperState: CropperState?
+    fileprivate var selectedImage: UIImage?
     fileprivate var shouldPickImage = true
     fileprivate var shouldShowEdit = false
     fileprivate var isRounded = false
     
+    var cropperState: CropperState?
     public var imagePickerDelegate: NDImagePickerDelegate?
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        launchImagePicker()
+        if shouldPickImage {
+            launchImagePicker()
+        }
+        
+        if let editImage = selectedImage {
+            showQCropper(editImage)
+        }
+        
     }
     
         
@@ -33,12 +41,16 @@ public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, 
     /// - Parameters:
     ///   - editable: sets whether edit window called after picker
     ///   - rounded: set edit window crop to round only
-    public func setUpImageManager(pickImage: Bool, editable: Bool, attachedImage: UIImage? = nil, rounded: Bool? = false ) {
+    public func setUpImageManager(pickImage: Bool, editable: Bool, image: UIImage? = nil, rounded: Bool? = false ) {
         if editable {
             shouldShowEdit = true
         }
         if let shouldRound = rounded {
             isRounded = shouldRound
+        }
+        
+        if let attachedImage = image {
+            selectedImage = attachedImage
         }
     }
     
