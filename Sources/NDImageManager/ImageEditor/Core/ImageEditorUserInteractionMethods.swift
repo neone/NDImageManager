@@ -221,8 +221,16 @@ extension ImageEditorViewController {
         overlay.cropBoxAlpha = 0
         topBar.isUserInteractionEnabled = false
         bottomView.isUserInteractionEnabled = false
+    
         selectedImage = originalImage
         imageView.image = originalImage
+    
+        backgroundView.isUserInteractionEnabled = true
+        overlay.cropBox.isHidden = false
+        imageFiltersView.isHidden = true
+        aspectRatioPicker.isHidden = true
+        topBar.aspectRationButton.isSelected = false
+        topBar.imageFiltersButton.isSelected = false
         
         UIView.animate(withDuration: 0.25, animations: {
             self.resetToDefaultLayout()
@@ -255,13 +263,14 @@ extension ImageEditorViewController {
         if aspectViewActive {
             aspectViewActive = false
             aspectRatioPicker.isHidden = true
+            angleRuler.isHidden = false
             topBar.aspectRationButton.isSelected = false
         }
         
-        angleRuler.isHidden = sender.isSelected
+
         overlay.cropBox.isHidden = sender.isSelected
         overlay.blur = !sender.isSelected
-//        overlay.backgroundColor = UIColor.black
+
         backgroundView.isUserInteractionEnabled = !sender.isSelected
         
         imageFiltersView.isHidden = !sender.isSelected
@@ -271,6 +280,7 @@ extension ImageEditorViewController {
     func aspectRationButtonPressed(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         aspectViewActive = true
+        overlay.cropBox.isHidden = false
         if filterViewActive {
             filterViewActive = false
             imageFiltersView.isHidden = true

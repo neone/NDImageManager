@@ -233,10 +233,10 @@ open class ImageEditorViewController: UIViewController, FiltersViewDelegate, Rot
 
         backgroundView.addSubview(scrollViewContainer)
         backgroundView.addSubview(overlay)
-        bottomView.addSubview(imageFiltersView)
-        imageFiltersView.isHidden = true
         bottomView.addSubview(aspectRatioPicker)
         bottomView.addSubview(angleRuler)
+        bottomView.addSubview(imageFiltersView)
+        imageFiltersView.isHidden = true
         bottomView.addSubview(toolbar)
 
         view.addSubview(backgroundView)
