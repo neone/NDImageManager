@@ -16,8 +16,8 @@ public protocol NDImagePickerDelegate {
 public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageEditorDelegate {
 
     fileprivate var selectedImage: UIImage?
-    fileprivate var shouldPickImage = true
-    fileprivate var shouldShowEdit = false
+    fileprivate var shouldPickImage: Bool?
+    fileprivate var shouldShowEdit: Bool?
     fileprivate var isRounded = false
     
     var cropperState: CropperState?
@@ -26,25 +26,37 @@ public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, 
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        if shouldPickImage {
-            launchImagePicker()
-        }
-        
-        if let editImage = selectedImage {
-            showQCropper(editImage)
-        }
-        
     }
     
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        guard shouldPickImage != nil && shouldShowEdit != nil else {
+            return
+        }
+        let pickImage = shouldPickImage!
+        let showEdit = shouldShowEdit!
         
+        if pickImage {
+            launchImagePicker()
+        } else if showEdit {
+            if let editImage = selectedImage {
+                shouldShowEdit = false
+                shouldPickImage = false
+                showQCropper(editImage)
+            }
+        }
+    }
+    
+    
     /// Public Setup Method - this is how NDImageManager should be set from outside the framework
     /// - Parameters:
     ///   - editable: sets whether edit window called after picker
     ///   - rounded: set edit window crop to round only
     public func setUpImageManager(pickImage: Bool, editable: Bool, image: UIImage? = nil, rounded: Bool? = false ) {
-        if editable {
-            shouldShowEdit = true
-        }
+      
+        shouldPickImage = pickImage
+        shouldShowEdit = editable
+        
         if let shouldRound = rounded {
             isRounded = shouldRound
         }
@@ -83,13 +95,17 @@ extension NDImageManager {
            guard let image = (info[.originalImage] as? UIImage) else { return }
         
         var selectedImage = image
+        shouldPickImage = false
         
         if let fixedImage = selectedImage.fixedOrientation() {
             selectedImage = fixedImage
         }
         
         picker.dismiss(animated: true) {
-            if self.shouldShowEdit {
+            guard let showEdit = self.shouldShowEdit else {
+                return
+            }
+            if showEdit {
                 self.showQCropper(selectedImage)
             } else {
                 self.imagePickerDelegate?.editedImageReturned(image: selectedImage)
