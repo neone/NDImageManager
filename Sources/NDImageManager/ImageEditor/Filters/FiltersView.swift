@@ -40,24 +40,6 @@ public class FiltersView: UIView {
     
     private func configureUI() {
         
-//        let dispatchGroup = DispatchGroup()
-//        
-//        for filter in Filter.all {
-//            dispatchGroup.enter()
-//            DispatchQueue.global().async { [weak self] in
-//                if var filteredImage = self?.smallImage {
-//                    filteredImage = CIFilterService.shared.applyFilter(with: filteredImage, filter: filter)
-//                    DispatchQueue.main.async {
-//                        print(filteredImage)
-//                        self?.filterPreviews.append(filteredImage)
-//                    }
-//                    dispatchGroup.leave()
-//                }
-//            }
-//        }
-//
-//        dispatchGroup.wait()
-        
         
         let cellHeight = self.bounds.height
         let cellWidth = cellHeight * 0.6
