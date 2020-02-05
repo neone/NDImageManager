@@ -8,8 +8,8 @@
 
 import UIKit
 
-public protocol NDImagePickerDelegate {
-    func editedImageReturned(image: UIImage)
+public protocol NDImageManagerDelegate {
+    func imageReturned(image: UIImage)
     func pickerCancelled()
 }
 
@@ -21,7 +21,7 @@ public class NDImageManager: UIViewController, UIImagePickerControllerDelegate, 
     fileprivate var isRounded = false
     
     var cropperState: CropperState?
-    public var imagePickerDelegate: NDImagePickerDelegate?
+    public var imagePickerDelegate: NDImageManagerDelegate?
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,7 +108,7 @@ extension NDImageManager {
             if showEdit {
                 self.showQCropper(selectedImage)
             } else {
-                self.imagePickerDelegate?.editedImageReturned(image: selectedImage)
+                self.imagePickerDelegate?.imageReturned(image: selectedImage)
                 self.dismiss(animated: true, completion: nil)
             }
         }
@@ -130,7 +130,7 @@ extension NDImageManager {
         if let state = state,
             let image = cropper.selectedImage.cropped(withCropperState: state) {
             cropperState = state
-            imagePickerDelegate?.editedImageReturned(image: image)
+            imagePickerDelegate?.imageReturned(image: image)
             self.dismiss(animated: true, completion: nil)
         }
     }
